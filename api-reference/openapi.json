@@ -222,7 +222,7 @@
                     "uuid": {
                         "type": "string",
                         "example": "2ae4c7bb76b6e8a323a12ecea143e613",
-                        "description": "If using dedicated bank buttons, an `authUrl` instead of a `uuid` will be returned to learn more about dedicated bank buttons, click [here](/configuration/dedicated-bank-buttons)."
+                        "description": "If using dedicated bank buttons, an `authUrl` instead of a `uuid` will be returned. To learn more about **Dedicated Bank Buttons**, click [here](/configuration/dedicated-bank-buttons)."
                     }
                 }
             },
