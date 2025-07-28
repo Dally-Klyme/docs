@@ -1,4 +1,11 @@
 ---
-title: "Create Plant"
-openapi: "POST /plants"
+title: "Create Payment Authorisation"
+openapi: "POST /payment-auth-requests"
 ---
+
+Call this endpoint to create a payment authorisation request and generate a unique `uuid` that you then insert into the `id` parameter
+of the Klyme HTML element.
+
+If everything is set up correctly as per the [quickstart](/quickstart), you should see something similar to the following.
+
+![klyme-widget-flow-loaded](https://storage.googleapis.com/klyme-misc/klyme-widget-flow-loaded.png)

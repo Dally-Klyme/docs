@@ -1,217 +1,497 @@
 {
-  "openapi": "3.1.0",
-  "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
-    "license": {
-      "name": "MIT"
-    },
-    "version": "1.0.0"
-  },
-  "servers": [
-    {
-      "url": "http://sandbox.mintlify.com"
-    }
-  ],
-  "security": [
-    {
-      "bearerAuth": []
-    }
-  ],
-  "paths": {
-    "/plants": {
-      "get": {
-        "description": "Returns all plants from the system that the user has access to",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "description": "Creates a new plant in the store",
-        "requestBody": {
-          "description": "Plant to add to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          },
-          "required": true
+    "openapi": "3.1.0",
+    "info": {
+        "title": "OpenAPI Klyme",
+        "description": "The Klyme API",
+        "license": {
+            "name": "MIT"
         },
-        "responses": {
-          "200": {
-            "description": "plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
+        "version": "1.0.0"
     },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
-          },
-          "400": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "webhooks": {
-    "/plant/webhook": {
-      "post": {
-        "description": "Information about a new plant added to the store",
-        "requestBody": {
-          "description": "Plant added to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          }
+    "servers": [
+        {
+            "url": "https://api-test.klyme.io/api/v1"
         },
-        "responses": {
-          "200": {
-            "description": "Return a 200 status to indicate that the data was received successfully"
-          }
+        {
+            "url": "https://api.klyme.io/api/v1"
         }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
-          },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
-          }
+    ],
+    "security": [
+        {
+            "basicAuth": []
         }
-      },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
+    ],
+    "paths": {
+        "/payment-auth-requests": {
+            "post": {
+                "description": "Creates a new payment authorisation request",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Payment"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Payment authorisation response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UUID"
+                                }
+                            }
+                        }
+                    }
+                }
             }
-          }
-        ]
-      },
-      "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
-          }
+        },
+        "/payments/status": {
+            "get": {
+                "description": "Get the payment status of a specific payment",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "in": "query",
+                        "description": "The `uuid` of the payment you would like to query.",
+                        "schema": {
+                            "type": "string",
+                            "minLength": 32,
+                            "maxLength": 32
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get payment status response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Payload"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-      }
     },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
-      }
+    "components": {
+        "schemas": {
+            "Payment": {
+                "required": [
+                    "merchantUuid",
+                    "amount",
+                    "currency",
+                    "redirectUrl"
+                ],
+                "type": "object",
+                "properties": {
+                    "merchantUuid": {
+                        "type": "string"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "format": "double",
+                        "example": 10.99
+                    },
+                    "currency": {
+                        "type": "string",
+                        "example": "eur",
+                        "minLength": 3,
+                        "maxLength": 3
+                    },
+                    "redirectUrl": {
+                        "type": "string",
+                        "maxLength": 256,
+                        "description": "Where the user will be redirected to once the payment has been authorised."
+                    },
+                    "bankId": {
+                        "type": "string",
+                        "maxLength": 64
+                    },
+                    "reference": {
+                        "type": "string",
+                        "maxLength": 36
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "maxLength": 256
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "maxLength": 64
+                    },
+                    "surname": {
+                        "type": "string",
+                        "maxLength": 64
+                    },
+                    "mobile": {
+                        "type": "number",
+                        "maxLength": 12
+                    },
+                    "phone": {
+                        "type": "number",
+                        "maxLength": 12
+                    },
+                    "customerId": {
+                        "type": "string",
+                        "maxLength": 32
+                    },
+                    "title": {
+                        "type": "string",
+                        "maxLength": 32
+                    },
+                    "dob": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "gender": {
+                        "type": "string",
+                        "maxLength": 128
+                    },
+                    "company": {
+                        "type": "string",
+                        "maxLength": 128
+                    },
+                    "address1": {
+                        "type": "string",
+                        "maxLength": 128
+                    },
+                    "address2": {
+                        "type": "string",
+                        "maxLength": 128
+                    },
+                    "city": {
+                        "type": "string",
+                        "maxLength": 64
+                    },
+                    "postcode": {
+                        "type": "string",
+                        "maxLength": 10
+                    },
+                    "country": {
+                        "type": "string",
+                        "example": "FR",
+                        "minLength": 2,
+                        "maxLength": 2
+                    },
+                    "cart": {
+                        "type": "array"
+                    },
+                    "discountCode": {
+                        "type": "string",
+                        "maxLength": 32
+                    },
+                    "affiliateId": {
+                        "type": "string",
+                        "maxLength": 32
+                    },
+                    "custom1": {
+                        "type": "string",
+                        "maxLength": 128
+                    },
+                    "custom2": {
+                        "type": "string",
+                        "maxLength": 128
+                    },
+                    "custom3": {
+                        "type": "string",
+                        "maxLength": 128
+                    },
+                    "custom4": {
+                        "type": "string",
+                        "maxLength": 128
+                    },
+                    "custom5": {
+                        "type": "string",
+                        "maxLength": 128
+                    },
+                    "customJson": {
+                        "type": "object"
+                    }
+                }
+            },
+            "UUID": {
+                "type": "object",
+                "properties": {
+                    "uuid": {
+                        "type": "string",
+                        "example": "2ae4c7bb76b6e8a323a12ecea143e613",
+                        "description": "If using dedicated bank buttons, an `authUrl` instead of a `uuid` will be returned to learn more about dedicated bank buttons, click [here](/configuration/dedicated-bank-buttons)."
+                    }
+                }
+            },
+            "Payload": {
+                "type": "object",
+                "properties": {
+                    "processingTime": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-07-23 18:32:26"
+                    },
+                    "uuid": {
+                        "type": "string",
+                        "example": "ce1797873467e1bbddda9f99c42f126a"
+                    },
+                    "merchantUuid": {
+                        "type": "string",
+                        "pattern": "^[a-f0-9]{32}$",
+                        "example": "xfe3539cb23ad9731be57905b8a0c099"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "format": "double",
+                        "example": 10.99
+                    },
+                    "currency": {
+                        "type": "string",
+                        "example": "GBP"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "example": "1A2B3C4D"
+                    },
+                    "result": {
+                        "type": "object",
+                        "properties": {
+                            "status": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "statusCode": {
+                                "type": "string",
+                                "example": "ACCC"
+                            },
+                            "description": {
+                                "type": "string",
+                                "example": "COMPLETED"
+                            },
+                            "institution": {
+                                "type": "string",
+                                "example": "monzo_ob"
+                            },
+                            "redirectUrl": {
+                                "type": "string",
+                                "format": "uri",
+                                "example": "https://your-redirect-url.com"
+                            }
+                        }
+                    },
+                    "customer": {
+                        "type": "object",
+                        "properties": {
+                            "ip": {
+                                "type": "string",
+                                "format": "ipv4",
+                                "example": "16.126.433.250"
+                            },
+                            "dob": {
+                                "type": "string",
+                                "format": "date",
+                                "nullable": true,
+                                "example": null
+                            },
+                            "city": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": "Manchester"
+                            },
+                            "email": {
+                                "type": "string",
+                                "format": "email",
+                                "nullable": true,
+                                "example": "info@klyme.io"
+                            },
+                            "phone": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                            },
+                            "gender": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                            },
+                            "mobile": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                            },
+                            "company": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                            },
+                            "country": {
+                                "type": "string",
+                                "pattern": "^[A-Z]{2}$",
+                                "nullable": true,
+                                "example": "GB"
+                            },
+                            "surname": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                            },
+                            "address1": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                            },
+                            "address2": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                            },
+                            "postcode": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                            },
+                            "firstName": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                            },
+                            "payeeIban": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                            },
+                            "payeeName": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                            },
+                            "customerId": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                            },
+                            "middleName": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                            },
+                            "payeeAccNum": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                            },
+                            "payeeSortCode": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                            }
+                        }
+                    },
+                    "cart": {
+                        "type": "object",
+                        "properties": {
+                            "items": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object"
+                                },
+                                "example": []
+                            },
+                            "affiliateId": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                            },
+                            "discountCode": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                            }
+                        }
+                    },
+                    "device": {
+                        "type": "object",
+                        "properties": {
+                            "deviceOs": {
+                                "type": "string",
+                                "example": "iOS"
+                            },
+                            "deviceName": {
+                                "type": "string",
+                                "example": "iPhone"
+                            },
+                            "deviceToken": {
+                                "type": "string",
+                                "example": "nTW220MaiBjonNLoox2k"
+                            },
+                            "deviceBrowser": {
+                                "type": "string",
+                                "example": "Mobile Safari"
+                            },
+                            "deviceIsMobile": {
+                                "type": "integer",
+                                "enum": [
+                                    0,
+                                    1
+                                ],
+                                "example": 1
+                            },
+                            "deviceOsVersion": {
+                                "type": "string",
+                                "example": "18.5"
+                            },
+                            "deviceBrowserVersion": {
+                                "type": "string",
+                                "example": "18.5"
+                            }
+                        }
+                    },
+                    "customParameters": {
+                        "type": "object",
+                        "properties": {
+                            "custom1": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                            },
+                            "custom2": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                            },
+                            "custom3": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                            },
+                            "custom4": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                            },
+                            "custom5": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                            },
+                            "customJson": {
+                                "type": "object",
+                                "nullable": true,
+                                "example": null
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "basicAuth": {
+                "type": "http",
+                "scheme": "basic"
+            }
+        }
     }
-  }
 }
