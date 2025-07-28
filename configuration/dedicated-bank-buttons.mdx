@@ -1,0 +1,25 @@
+---
+title: "Dedicated Bank Buttons"
+description: "Enhance the checkout experience and improve conversions using dedicated banks buttons."
+icon: "building-columns"
+---
+
+Dedicated bank buttons can be created and linked directly to their corresponding banks by 
+specifify a `bankId` when making the `/payment-auth-requests` call.
+
+Instead of a `uuid` being returned, an `authId` will be returned.
+
+Redirecting the user to the `authUrl` will either open their mobile banking app or launch their online banking platform in the browser,
+depending on the device being used.
+
+<Card
+  title="Banks"
+  icon="building-columns"
+  href="https://storage.googleapis.com/klyme-misc/bank_ids.csv"
+  horizontal
+>
+  Download the list of Banks here
+</Card>
+
+![dedicated-bank-buttons](https://storage.googleapis.com/klyme-misc/klyme-dedicated-bank-buttons.png)
+

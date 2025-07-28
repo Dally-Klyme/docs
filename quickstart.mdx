@@ -1,80 +1,111 @@
 ---
 title: "Quickstart"
-description: "Start building awesome documentation in minutes"
+description: "Get started with Klyme in minutes."
 ---
 
-## Get started in three steps
+## Get started in two steps
 
-Get your documentation site running locally and make your first customization.
+In this quickstart, we will walk-through building a project using Klyme’s SDK. By the time you’re done, you’ll be ready to start accepting payments confidently.
 
-### Step 1: Set up your local environment
+#### Prerequisite: Credentials
+Before you get started, you must have a set of Klyme credentials which consist of:
 
-<AccordionGroup>
-  <Accordion icon="copy" title="Clone your docs locally">
-    During the onboarding process, you created a GitHub repository with your docs content if you didn't already have one. You can find a link to this repository in your [dashboard](https://dashboard.mintlify.com).
-    
-    To clone the repository locally so that you can make and preview changes to your docs, follow the [Cloning a repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) guide in the GitHub docs.
-  </Accordion>
-  <Accordion icon="rectangle-terminal" title="Start the preview server">
-    1. Install the Mintlify CLI: `npm i -g mint`
-    2. Navigate to your docs directory and run: `mint dev`
-    3. Open `http://localhost:3000` to see your docs live!
-    
-    <Tip>Your preview updates automatically as you edit files.</Tip>
-  </Accordion>
-</AccordionGroup>
+`Merchant UUID` `Username` `Password`
 
-### Step 2: Deploy your changes
+If you don't, not to worry. You can request a set of credentials [here](https://klyme.io/contact/).
 
-<AccordionGroup>
-  <Accordion icon="github" title="Install our GitHub app">
-    Install the Mintlify GitHub app from your [dashboard](https://dashboard.mintlify.com/settings/organization/github-app).
-    
-    Our GitHub app automatically deploys your changes to your docs site, so you don't need to manage deployments yourself.
-</Accordion>
-<Accordion icon="palette" title="Update your site name and colors">
-    For a first change, let's update the name and colors of your docs site.
+### Step 1: Add Klyme SDK to your project
 
-    1. Open `docs.json` in your editor.
-    2. Change the `"name"` field to your project name.
-    3. Update the `"colors"` to match your brand.
-    4. Save and see your changes instantly at `http://localhost:3000`.
+Import the Klyme SDK into your project and add the Klyme HTML element, leaving the `id` parameter empty.
 
-    <Tip>Try changing the primary color to see an immediate difference!</Tip>
-  </Accordion>
-</AccordionGroup>
+``` html index.html lines icon="html5"
+<html>
+  <head>
+      <!-- Sandbox -->
+      <script src="https://widget.klyme.io/test.js"></script>
 
-### Step 3: Go live
+      <!-- Production -->
+      <script src="https://widget.klyme.io/prod.js"></script>
 
-<Accordion icon="rocket" title="Publish your docs">
-  1. Commit and push your changes.
-  2. Your docs will update and be live in moments!
-</Accordion>
+      <title>Klyme Example</title>
+  </head>
 
-## Next steps
+  <body>
+      <klyme-widget id="" lang="" country=""></klyme-widget>
+  </body>
+</html>
+```
 
-Now that you have your docs running, explore these key features:
+**Language**
 
-<CardGroup cols={2}>
+The `lang` parameter is optional but can be used to preload the Klyme Widget with a specific language pre-selected by default.
 
-<Card title="Write Content" icon="pen-to-square" href="/essentials/markdown">
-  Learn MDX syntax and start writing your documentation.
-</Card>
+Options available are: `en` `de` `es` `fi` `fr` `it` `nl` `pt` `se`
 
-<Card title="Customize style" icon="palette" href="/essentials/settings">
-  Make your docs match your brand perfectly.
-</Card>
+**Country (EUR Only)**
 
-<Card title="Add code examples" icon="square-code" href="/essentials/code">
-  Include syntax-highlighted code blocks.
-</Card>
+The `country` parameter is also optional but can be used to preload the Klyme Widget with banks from a specific as opposed to displaying the entire European banks list.
 
-<Card title="API documentation" icon="code" href="/api-reference/introduction">
-  Auto-generate API docs from OpenAPI specs.
-</Card>
+Alternatively, you can simply pass `auto` as the `country` parameter and let the Klyme Widget handle everything — automatically detecting the user’s location and displaying region-specific banks.
 
-</CardGroup>
+Options available are: `be` `es` `fr` `it` `nl` `pt` `auto`
 
-<Note>
-  **Need help?** See our [full documentation](https://mintlify.com/docs) or join our [community](https://mintlify.com/community).
-</Note>
+<Tip>When using the `lang` or `country` parameters, the user will always have the option to override this and select a langauge or country of their preference.</Tip>
+
+### Step 2: Create the Payment Authorisation request
+
+Call the `/payment-auth-requests` endpoint to create a payment authorisation request and generate a unique `uuid` that you then insert into the `id` parameter of the
+Klyme HTML element.
+
+```bash Request Example
+curl --location 'http://api.klyme.io/api/v1/payment-auth-requests' \
+  --header 'Content-Type: application/x-www-form-urlencoded' \
+  --header 'Authorization: ••••••' \
+  --data-urlencode 'merchantUuid=YOUR MERCHANT UUID' \
+  --data-urlencode 'amount=10.00' \
+  --data-urlencode 'currency=EUR' \
+  --data-urlencode 'redirectUrl=https://your-redirect-url.com'
+```
+
+```json Response Example
+{ "uuid": "2ae4c7bb76b6e8a323a12ecea143e613" }
+```
+
+We **recommend** recording all generated `uuid's` as each one serves as a unique Klyme reference for its corresponding payment.
+
+<Tip>The Klyme Widget is reactive and renders when it detects a change to the `id` parameter.</Tip>
+
+If everything is set up correctly, you should see something similar to the following.
+
+![klyme-widget-flow-loaded](https://storage.googleapis.com/klyme-misc/klyme-widget-flow-loaded.png)
+
+<Tip>At this stage, no further action is required — Klyme will handle the entire payment flow from here.</Tip>
+
+### Payment Status
+
+Once a user has gone through the entire payment flow and successfully authorised a payment with their bank, they will be redirected back to the
+`redirectUrl` you will have specified in **Step 2** when making the call to `/payment-auth-requests`.
+
+When a user is redirected back to the specified `redirectUrl`, there will be  **three** query parameters appended to it.
+
+`uuid` `status` `status_code`
+
+**Example:**
+
+> https://your-redirect-url.com?uuid=eb2de72be97c464a3c293a57fe7a8f64&status=1&status_code=ACCC
+
+
+You can use the `status` parameter to determine whether the payment was successful, failed or has gone into a pending state.
+
+- Status of `1` implies the payment flow has been successful and the funds have left the users bank account.
+- Status of `0` implies the payment was rejected or failed due to technical issues on the banks side.
+- Status of `2` implies the payment is in a pending state and the customers bank has further checks to complete before the payment is authorised.
+
+<Tip>You can learn more about status codes [here](/essentials/status-codes)</Tip>
+
+### Optional
+
+If you wish to receive the complete payload of a payment, you have two options. Either leverage our webhook notifications functionality or you can make
+an API call to our `/payments/status` endpoint.
+
+<Tip>You can learn more about webhook notifications [here](/essentials/webhook-notifications)</Tip>

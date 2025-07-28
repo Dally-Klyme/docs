@@ -1,0 +1,59 @@
+---
+title: Status Codes
+description: "Payment status codes and what they mean."
+icon: "chart-simple-horizontal"
+---
+
+The Klyme API reports back three status variables when a payment is authorised and executed: `status`, `statusCode` and `description`.
+
+## Description
+
+Description illustrates the payment authorisation status with a given bank.
+
+- `PENDING` when the initiation request is still being processed.
+- `COMPLETED` when the initiation request has passed validation checks and been accepted by the bank. 
+Settlement is expected to happen in due course (unless fraud checks fail).
+- `FAILED` when the bank has rejected the initiation request and the payment will not be processed further.
+
+## Status Code
+
+The `statusCode` provides a more detailed and extensive view on the payment status.
+
+It's primary use is after a payment has been successfully initiated (i.e. status is COMPLETED).
+The `statusCode` can be used to track the payment through its execution lifecycle, all the way up to the final settlement into the payee's account.
+
+<Note>Please note that the provision and accuracy of `statusCode` values are determined by the banks themselves. In some cases, reporting may be limited or stop prematurely.
+Klyme simply transmits the data we receive from the banks and cannot influence or validate its completeness.</Note>
+
+![status-codes-chart](https://storage.googleapis.com/klyme-misc/status_codes_chart.png)
+
+|Code|Name|Description|Status|Description|
+| --- | --- | --- |--- | ---|
+|ACCC|AcceptedCreditSettlementCompleted|Payment successfully processed. Settlement on the creditor's account has been completed.|1|COMPLETED|
+|ACWP|AcceptedWithoutPosting|Payment instruction included in the credit transfer is accepted without being posted to the creditor customer’s account.|1|COMPLETED|
+|ACSC|AcceptedSettlementCompleted|Payment successfully processed. Settlement on the debtor’s account has been completed but not on the creditor's.|1|COMPLETED|
+|ACSP|AcceptedSettlementInProcess|All preceding checks such as technical validation and customer profile were successful and therefore the payment initiation has been accepted for execution.|2|PENDING|
+|ACFC|AcceptedFundsChecked|Pre-ceeding check of technical validation and customer profile was successful and an automatic funds check was positive.|2|PENDING|
+|ACCP|AcceptedCustomerProfile|Preceding checks of technical validation was successful. Customer profile check was also successful.|2|PENDING|
+|ACWC|AcceptedWithChange|Instruction is accepted but a change will be made, such as date or remittance not sent.|2|PENDING|
+|ACTC|AcceptedTechnicalValidation|Authentication and syntactical and semantical validation are successful|2|PENDING|
+|PATC|PartiallyAcceptedTechnicalCorrect|The payment initiation needs multiple authentications, where some but not yet all have been performed. Syntactical and semantical validations are successful.|2|PENDING|
+|PART|PartiallyAccepted|A number of transactions have been accepted, whereas another number of transactions have not yet achieved 'accepted' status. This code may be used only in case of bulk payments, where reporting is performed against the entire file.|2|PENDING|
+|PDNG|Pending|Payment initiation or individual transaction included in the payment initiation is pending. Further checks and status update will be performed.|2|PENDING|
+|RCVD|Received	|Payment initiation has been received by the Institution.|2|PENDING|
+|RJCT|Rejected|Payment initiation or individual transaction included in the payment initiation has been rejected.|0|FAILED|
+|CANC|Cancelled|Payment initiation has been cancelled before execution|0|FAILED|
+
+## Status
+
+The `status` is computed based upon the combined logic of both `description` and `statusCode`.
+
+<Note>We recommend clients to focus on `status` above all else when integrating Klyme.</Note>
+
+- Status of `1` implies the payment flow has been successful and the funds have left the users bank account.
+- Status of `0` implies the payment was rejected or failed due to technical issues on the banks side.
+- Status of `2` implies the payment is in a pending state and the customers bank has further checks to complete before the payment is authorised.
+
+<Note>Please note that while status codes `ACSC` and `ACWP` are marked as `1`, their settlement success rate is approximately 99%, compared to `ACCC`
+which settles at 100%. In most cases, payments with a status code of `ACSC` or `ACWP` will settle successfully, though in rare cases, reversals may occur.
+It is the client’s responsibility to determine how these two status codes are handled within their integration.</Note>

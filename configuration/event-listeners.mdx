@@ -1,0 +1,39 @@
+---
+title: Event Listeners
+description: "Use event listeners to determine when the Klyme widget is opened or closed."
+icon: "square-js"
+---
+
+If you would like to know when the Klyme Widget is opened or if the user has closed it, you can use JavaScript event listeners.
+
+## Opening the Klyme Widget
+
+<CodeGroup>
+```javascript Code
+window.addEventListener("message", (e) => {
+  if (e.data.event == "opened") {
+    console.log(e.data);
+  }
+});
+```
+
+```javascript Result
+{ uuid: 'eb2de72be97c464a3c293a57fe7a8f64', event: 'opened' }
+```
+</CodeGroup>
+
+## Closing the Klyme Widget
+
+<CodeGroup>
+```javascript Code
+window.addEventListener("message", (e) => {
+  if (e.data.event == "closed") {
+    console.log(e.data);
+  }
+});
+```
+
+```javascript Result
+{ uuid: 'eb2de72be97c464a3c293a57fe7a8f64', event: 'closed' }
+```
+</CodeGroup>
