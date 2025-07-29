@@ -9,7 +9,7 @@ If you would like to know when the Klyme Widget is opened or if the user has clo
 ## Opening the Klyme Widget
 
 <CodeGroup>
-```javascript Code
+```javascript Code lines icon="square-js"
 window.addEventListener("message", (e) => {
   if (e.data.event == "opened") {
     console.log(e.data);
@@ -25,7 +25,7 @@ window.addEventListener("message", (e) => {
 ## Closing the Klyme Widget
 
 <CodeGroup>
-```javascript Code
+```javascript Code lines icon="square-js"
 window.addEventListener("message", (e) => {
   if (e.data.event == "closed") {
     console.log(e.data);

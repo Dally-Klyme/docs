@@ -1,13 +1,13 @@
 ---
 title: Webhook Notifications
-description: "How to receive webhook notificatinos for events"
+description: "How to receive webhook notifications for events"
 icon: "webhook"
 ---
 
 Webhook notifications are automated messages sent from Klyme to a specific URL endpoint of your choice.
 
 Instead of constantly checking for updates (polling) via API, webhooks push real-time data to a designated URL endpoint as soon as an event occurs such as a
-payment status changing from `pending` to `success`.
+payment status changing from `PENDING` to `COMPLETED`.
 
 ### Key Points
 
@@ -21,7 +21,7 @@ payment status changing from `pending` to `success`.
 ## How to decrypt webhook notifications
 
 <CodeGroup>
-```javascript JavaScript
+```javascript JavaScript lines icon="square-js"
 const express = require('express');
 const crypto = require('crypto');
 const app = express();
@@ -39,7 +39,7 @@ app.post('/webhooks', (req, res) => {
 });
 ```
 
-```php PHP
+```php PHP lines icon="php"
 $secret = getenv('WEBHOOK_SECRET');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/webhooks') {

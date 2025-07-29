@@ -17,12 +17,12 @@ Settlement is expected to happen in due course (unless fraud checks fail).
 
 ## Status Code
 
-The `statusCode` provides a more detailed and extensive view on the payment status.
+The Status Code provides a more detailed and extensive view on the payment status.
 
-It's primary use is after a payment has been successfully initiated (i.e. status is COMPLETED).
-The `statusCode` can be used to track the payment through its execution lifecycle, all the way up to the final settlement into the payee's account.
+It's primary use is after a payment has been successfully initiated.
+The Status Code can be used to track the payment through its execution lifecycle, all the way up to the final settlement into the payee's account.
 
-<Note>Please note that the provision and accuracy of `statusCode` values are determined by the banks themselves. In some cases, reporting may be limited or stop prematurely.
+<Note>Please note that the provision and accuracy of Status Code values are determined by the banks themselves. In some cases, reporting may be limited or stop prematurely.
 Klyme simply transmits the data we receive from the banks and cannot influence or validate its completeness.</Note>
 
 ### Status Codes Flow Diagram
@@ -175,9 +175,9 @@ Klyme simply transmits the data we receive from the banks and cannot influence o
 
 ## Status
 
-The `status` is computed based upon the combined logic of both `description` and `statusCode`.
+The Status is computed based upon the combined logic of both Description and Status Code.
 
-<Note>We recommend clients to focus on `status` above all else when integrating Klyme.</Note>
+<Note>We recommend clients to focus on Status above all else when integrating Klyme.</Note>
 
 - Status of `1` implies the payment flow has been successful and the funds have left the users bank account.
 - Status of `0` implies the payment was rejected or failed due to technical issues on the banks side.
