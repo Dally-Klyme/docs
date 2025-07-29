@@ -1,6 +1,6 @@
 ---
 title: "Quickstart"
-description: "Get started with Klyme in minutes."
+description: "Get started with Klyme in minutes"
 ---
 
 ## Get started in two steps
@@ -44,9 +44,9 @@ Options available are: `en` `de` `es` `fi` `fr` `it` `nl` `pt` `se`
 
 **Country (EUR Only)**
 
-The `country` parameter is also optional but can be used to preload the Klyme Widget with banks from a specific as opposed to displaying the entire European banks list.
+The `country` parameter is also optional but can be used to preload the Klyme Widget with banks from a specific region as opposed to displaying the entire European banks list.
 
-Alternatively, you can simply pass `auto` as the `country` parameter and let the Klyme Widget handle everything — automatically detecting the user’s location and displaying region-specific banks.
+Alternatively, you can simply pass through `auto` as the `country` parameter and let the Klyme Widget handle everything — automatically detecting the user’s location and displaying region-specific banks.
 
 Options available are: `be` `es` `fr` `it` `nl` `pt` `auto`
 
@@ -54,7 +54,7 @@ Options available are: `be` `es` `fr` `it` `nl` `pt` `auto`
 
 ### Step 2: Create the Payment Authorisation request
 
-Call the `/payment-auth-requests` endpoint to create a payment authorisation request and generate a unique `uuid` that you then insert into the `id` parameter of the
+Call the [`Create Payment Authorisation`](api-reference/endpoint/create) endpoint to create a payment authorisation request and generate a unique `uuid` that you then insert into the `id` parameter of the
 Klyme HTML element.
 
 ```bash Request Example
@@ -84,7 +84,7 @@ If everything is set up correctly, you should see something similar to the follo
 ### Payment Status
 
 Once a user has gone through the entire payment flow and successfully authorised a payment with their bank, they will be redirected back to the
-`redirectUrl` you will have specified in **Step 2** when making the call to `/payment-auth-requests`.
+`redirectUrl` you will have specified in **Step 2** when making the call to [`Create Payment Authorisation`](api-reference/endpoint/create).
 
 When a user is redirected back to the specified `redirectUrl`, there will be  **three** query parameters appended to it.
 
@@ -101,11 +101,13 @@ You can use the `status` parameter to determine whether the payment was successf
 - Status of `0` implies the payment was rejected or failed due to technical issues on the banks side.
 - Status of `2` implies the payment is in a pending state and the customers bank has further checks to complete before the payment is authorised.
 
-<Tip>You can learn more about status codes [here](/essentials/status-codes)</Tip>
+<Tip>You can learn more about Status Codes [here](/essentials/status-codes)</Tip>
 
 ### Optional
 
-If you wish to receive the complete payload of a payment, you have two options. Either leverage our webhook notifications functionality or you can make
-an API call to our `/payments/status` endpoint.
+If you wish to receive the complete payload of a payment, you have two options. Either leverage our [Webhook Notifications](/configuration/webhook-notifications) functionality or you can make
+an API call to our [`Get Payment Status`](api-reference/endpoint/get) endpoint.
 
-<Tip>You can learn more about webhook notifications [here](/essentials/webhook-notifications)</Tip>
+If you choose not to use webhook notifications, you may wish to monitor the status of a payment until it has reached the `COMPLETED` or `FAILED` state by polling the [`Get Payment Status`](api-reference/endpoint/get) endpoint.
+
+<Tip>You can learn more about webhook Notifications [here](/essentials/webhook-notifications)</Tip>

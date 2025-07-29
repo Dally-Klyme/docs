@@ -1,6 +1,6 @@
 ---
 title: Status Codes
-description: "Payment status codes and what they mean."
+description: "Payment status codes and what they mean"
 icon: "chart-simple-horizontal"
 ---
 
@@ -25,24 +25,153 @@ The `statusCode` can be used to track the payment through its execution lifecycl
 <Note>Please note that the provision and accuracy of `statusCode` values are determined by the banks themselves. In some cases, reporting may be limited or stop prematurely.
 Klyme simply transmits the data we receive from the banks and cannot influence or validate its completeness.</Note>
 
+### Status Codes Flow Diagram
+
 ![status-codes-chart](https://storage.googleapis.com/klyme-misc/status_codes_chart.png)
 
-|Code|Name|Description|Status|Description|
-| --- | --- | --- |--- | ---|
-|ACCC|AcceptedCreditSettlementCompleted|Payment successfully processed. Settlement on the creditor's account has been completed.|1|COMPLETED|
-|ACWP|AcceptedWithoutPosting|Payment instruction included in the credit transfer is accepted without being posted to the creditor customer’s account.|1|COMPLETED|
-|ACSC|AcceptedSettlementCompleted|Payment successfully processed. Settlement on the debtor’s account has been completed but not on the creditor's.|1|COMPLETED|
-|ACSP|AcceptedSettlementInProcess|All preceding checks such as technical validation and customer profile were successful and therefore the payment initiation has been accepted for execution.|2|PENDING|
-|ACFC|AcceptedFundsChecked|Pre-ceeding check of technical validation and customer profile was successful and an automatic funds check was positive.|2|PENDING|
-|ACCP|AcceptedCustomerProfile|Preceding checks of technical validation was successful. Customer profile check was also successful.|2|PENDING|
-|ACWC|AcceptedWithChange|Instruction is accepted but a change will be made, such as date or remittance not sent.|2|PENDING|
-|ACTC|AcceptedTechnicalValidation|Authentication and syntactical and semantical validation are successful|2|PENDING|
-|PATC|PartiallyAcceptedTechnicalCorrect|The payment initiation needs multiple authentications, where some but not yet all have been performed. Syntactical and semantical validations are successful.|2|PENDING|
-|PART|PartiallyAccepted|A number of transactions have been accepted, whereas another number of transactions have not yet achieved 'accepted' status. This code may be used only in case of bulk payments, where reporting is performed against the entire file.|2|PENDING|
-|PDNG|Pending|Payment initiation or individual transaction included in the payment initiation is pending. Further checks and status update will be performed.|2|PENDING|
-|RCVD|Received	|Payment initiation has been received by the Institution.|2|PENDING|
-|RJCT|Rejected|Payment initiation or individual transaction included in the payment initiation has been rejected.|0|FAILED|
-|CANC|Cancelled|Payment initiation has been cancelled before execution|0|FAILED|
+### Detailed Overview of Status Codes
+
+<AccordionGroup>
+  <Accordion title="ACCC" >
+    **Name:** AcceptedCreditSettlementCompleted
+
+    **Description:** COMPLETED
+
+    **Extended Description:** Payment successfully processed. Settlement on the creditor’s account has been completed.
+
+    **Status:** 1
+  </Accordion>
+
+  <Accordion title="ACWP" >
+    **Name:** AcceptedWithoutPosting
+
+    **Description:** COMPLETED
+
+    **Extended Description:** Payment instruction included in the credit transfer is accepted **without** being settled to the creditor customer’s account.
+
+    **Status:** 1
+  </Accordion>
+
+  <Accordion title="ACSC" >
+    **Name:** AcceptedSettlementCompleted
+
+    **Description:** COMPLETED
+
+    **Extended Description:** Payment successfully processed. Settlement on the debtor’s account has been completed but **not** on the creditor’s account.
+
+    **Status:** 1
+  </Accordion>
+
+  <Accordion title="ACSP" >
+    **Name:** AcceptedSettlementInProcess
+
+    **Description:** PENDING
+
+    **Extended Description:** All preceding checks such as technical validation and customer profile were successful and therefore the payment initiation has been accepted for execution.
+
+    **Status:** 2
+  </Accordion>
+
+  <Accordion title="ACFC" >
+    **Name:** AcceptedFundsChecked
+
+    **Description:** PENDING
+
+    **Extended Description:** Pre-ceeding check of technical validation and customer profile was successful and an automatic funds check was positive.
+
+    **Status:** 2
+  </Accordion>
+
+  <Accordion title="ACCP" >
+    **Name:** AcceptedCustomerProfile
+
+    **Description:** PENDING
+
+    **Extended Description:** Preceding checks of technical validation was successful. Customer profile check was also successful.
+
+    **Status:** 2
+  </Accordion>
+
+  <Accordion title="ACWC" >
+    **Name:** AcceptedWithChange
+
+    **Description:** PENDING
+
+    **Extended Description:** Instruction is accepted but a change will be made, such as date or remittance not sent.
+
+    **Status:** 2
+  </Accordion>
+
+  <Accordion title="ACTC" >
+    **Name:** AcceptedTechnicalValidation
+
+    **Description:** PENDING
+
+    **Extended Description:** Authentication and syntactical and semantical validation are successful.
+
+    **Status:** 2
+  </Accordion>
+
+  <Accordion title="PATC" >
+    **Name:** PartiallyAcceptedTechnicalCorrect
+
+    **Description:** PENDING
+
+    **Extended Description:** The payment initiation needs multiple authentications, where some but not yet all have been performed. Syntactical and semantical validations are successful.
+
+    **Status:** 2
+  </Accordion>
+
+  <Accordion title="PART" >
+    **Name:** PartiallyAccepted
+
+    **Description:** PENDING
+
+    **Extended Description:** A number of transactions have been accepted, whereas another number of transactions have not yet achieved ‘accepted’ status. This code may be used only in case of bulk payments, where reporting is performed against the entire file.
+
+    **Status:** 2
+  </Accordion>
+
+  <Accordion title="PDNG" >
+    **Name:** Pending
+
+    **Description:** PENDING
+
+    **Extended Description:** Payment initiation or individual transaction included in the payment initiation is pending. Further checks and status update will be performed.
+
+    **Status:** 2
+  </Accordion>
+
+  <Accordion title="RCVD" >
+    **Name:** Received
+
+    **Description:** PENDING
+
+    **Extended Description:** Payment initiation has been received by the Institution.
+
+    **Status:** 2
+  </Accordion>
+
+  <Accordion title="RJCT" >
+    **Name:** Rejected
+
+    **Description:** FAILED
+
+    **Extended Description:** Payment initiation or individual transaction included in the payment initiation has been rejected.
+
+    **Status:** 0
+  </Accordion>
+
+  <Accordion title="CANC" >
+    **Name:** Cancelled
+
+    **Description:** FAILED
+
+    **Extended Description:** Payment initiation has been cancelled before execution.
+
+    **Status:** 0
+  </Accordion>
+</AccordionGroup>
 
 ## Status
 
