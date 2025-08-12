@@ -1,0 +1,52 @@
+---
+title: "Hosted Checkout"
+description: "Klyme’s hosted checkout integration delivers a ready-made, secure payment page"
+icon: "cart-shopping"
+---
+
+While the Klyme Widget shines as an embedded solution — giving you full control over the checkout experience, our Hosted Checkout page offers
+the fastest and simplest way to get started.
+
+## How does it work?
+
+1. Call the [`Create Payment Authorisation`](api-reference/endpoint/create) endpoint to initiate a payment authorisation request and receive a unique `uuid`
+2. Redirect the customer to https://checkout.klyme.io?uuid={uuid} where `{uuid}` is the value of the `uuid` from Step 1
+
+<Tip>Klyme will handle the entire payment flow from here. here.</Tip>
+
+![hosted-checkout](https://storage.googleapis.com/klyme-misc/hosted-checkout.png)
+
+### Sandbox
+
+When testing in our sandbox environment, be sure to include the `mode` query parameter and set its value to `test`.
+
+**Example:**
+
+> https://checkout.klyme.io?uuid={uuid}&mode=test
+
+### Language
+
+The `lang` query parameter is optional but can be used to preload the Klyme Widget with a specific language pre-selected by default.
+
+Options available are: `en` `de` `es` `fi` `fr` `it` `nl` `pt` `se`
+
+**Example:**
+
+> https://checkout.klyme.io?uuid={uuid}&lang=fr
+
+### Country (EUR Only)
+
+The `country` parameter is also optional but can be used to preload the Klyme Widget with banks from a specific region as opposed to displaying the entire European banks list.
+
+Alternatively, you can simply pass through `auto` as the `country` parameter and let the Klyme Widget handle everything — automatically detecting the user’s location and displaying region-specific banks.
+
+Options available are: `be` `es` `fr` `it` `nl` `pt` `auto`
+
+**Example:**
+
+> https://checkout.klyme.io?uuid={uuid}&country=auto
+
+<Tip>When using the `lang` or `country` parameters, the user will always have the option to override this and select a langauge or country of their preference.</Tip>
+
+
+

@@ -3,11 +3,11 @@ title: "Quickstart"
 description: "Get started with Klyme in minutes"
 ---
 
-## Get started in two steps
+# Get started in two steps
 
 In this quickstart, we will walk-through building a project using Klyme’s SDK. By the time you’re done, you’ll be ready to start accepting payments confidently.
 
-#### Prerequisite: Credentials
+### Prerequisite: Credentials
 Before you get started, you must have a set of Klyme credentials which consist of:
 
 `Merchant UUID` `Username` `Password`
@@ -38,13 +38,13 @@ Import the Klyme SDK into your project and add the Klyme HTML element, leaving t
 
 <Warning>Do not place the Klyme HTML element within an iFrame. Banks set strict headers to prevent their pages or apps from being loaded when the request comes from within an iFrame.</Warning> 
 
-**Language**
+#### Language
 
 The `lang` parameter is optional but can be used to preload the Klyme Widget with a specific language pre-selected by default.
 
 Options available are: `en` `de` `es` `fi` `fr` `it` `nl` `pt` `se`
 
-**Country (EUR Only)**
+#### Country (EUR Only)
 
 The `country` parameter is also optional but can be used to preload the Klyme Widget with banks from a specific region as opposed to displaying the entire European banks list.
 
@@ -105,7 +105,7 @@ You can use the `status` parameter to determine whether the payment was successf
 
 <Tip>You can learn more about Status Codes [here](/essentials/status-codes)</Tip>
 
-### Optional
+#### Complete Payload (Optional)
 
 If you wish to receive the complete payload of a payment, you have two options. Either leverage our [Webhook Notifications](/configuration/webhook-notifications) functionality or you can make
 an API call to our [`Get Payment Status`](api-reference/endpoint/get) endpoint.

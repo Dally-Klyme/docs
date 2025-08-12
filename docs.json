@@ -25,6 +25,7 @@
                         "pages": [
                             "configuration/dedicated-bank-buttons",
                             "configuration/event-listeners",
+                            "configuration/hosted-checkout",
                             "configuration/webhook-notifications"
                         ]
                     },
