@@ -586,7 +586,7 @@
                 "properties": {
                     "link": {
                         "type": "string",
-                        "example": "https://lnk.payment.io/a11de8"
+                        "example": "https://lnk.klyme.io/a11de8"
                     },
                     "date": {
                         "type": "string",
