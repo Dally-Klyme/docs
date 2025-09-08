@@ -77,8 +77,8 @@
         }
     },
     "logo": {
-        "light": "https://storage.googleapis.com/klyme-images/logos/logo_gradient_bold.png",
-        "dark": "https://storage.googleapis.com/klyme-images/logos/logo_white_bold.png"
+        "light": "https://storage.googleapis.com/klyme-images/logos/logo_gradient_extra_bold.png",
+        "dark": "https://storage.googleapis.com/klyme-images/logos/logo_gradient_extra_bold.png"
     },
     "navbar": {
         "links": [
