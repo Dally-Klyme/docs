@@ -17,7 +17,8 @@
                         "group": "Getting started",
                         "pages": [
                             "index",
-                            "quickstart"
+                            "quickstart",
+                            "payment-links"
                         ]
                     },
                     {
@@ -50,10 +51,16 @@
                         ]
                     },
                     {
-                        "group": "API Endpoints",
+                        "group": "Payments",
                         "pages": [
                             "api-reference/endpoint/create",
                             "api-reference/endpoint/get"
+                        ]
+                    },
+                    {
+                        "group": "Payment Links",
+                        "pages": [
+                            "api-reference/endpoint/payment-link"
                         ]
                     }
                 ]

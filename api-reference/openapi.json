@@ -24,7 +24,7 @@
     "paths": {
         "/payment-auth-requests": {
             "post": {
-                "description": "Creates a new payment authorisation request",
+                "description": "Create a new payment authorisation request",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -51,7 +51,7 @@
         },
         "/payments/status": {
             "get": {
-                "description": "Get the payment status of a specific payment",
+                "description": "Get the status of a specific payment",
                 "parameters": [
                     {
                         "name": "uuid",
@@ -71,6 +71,33 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Payload"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/payments/link": {
+            "post": {
+                "description": "Create and send a payment link",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PaymentLink"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Payment link response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PaymentLinkResponse"
                                 }
                             }
                         }
@@ -100,9 +127,10 @@
                     },
                     "currency": {
                         "type": "string",
-                        "example": "eur",
-                        "minLength": 3,
-                        "maxLength": 3
+                        "enum": [
+                            "EUR",
+                            "GBP"
+                        ]
                     },
                     "redirectUrl": {
                         "type": "string",
@@ -483,6 +511,87 @@
                                 "example": null
                             }
                         }
+                    }
+                }
+            },
+            "PaymentLink": {
+                "required": [
+                    "merchantUuid",
+                    "amount",
+                    "currency",
+                    "type",
+                    "reference"
+                ],
+                "type": "object",
+                "properties": {
+                    "merchantUuid": {
+                        "type": "string"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "format": "double",
+                        "example": 10.99
+                    },
+                    "currency": {
+                        "type": "string",
+                        "enum": [
+                            "GBP",
+                            "EUR"
+                        ]
+                    },
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "EMAIL",
+                            "SMS",
+                            "EMSMS",
+                            "LINK"
+                        ],
+                        "description": "Determines how the payment link is delivered.\n\n`EMAIL` requires `email` to be specified.\n`SMS` requires `mobile` and `countryCallingCode` to be specified.\n`EMSMS` requires both `email` and `mobile` to be specified."
+                    },
+                    "reference": {
+                        "type": "string",
+                        "minLength": 6,
+                        "maxLength": 36
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "maxLength": 256
+                    },
+                    "mobile": {
+                        "type": "number",
+                        "maxLength": 12,
+                        "description": "Must not contain country code, leading zeros or `+` character.\nThe parameter `countryCallingCode` is mandatory if specifying mobile.",
+                        "example": "7742123456"
+                    },
+                    "countryCallingCode": {
+                        "type": "string",
+                        "maxLength": 2,
+                        "example": "44",
+                        "description": "Is mandatory if `mobile` has been specified."
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "maxLength": 64
+                    },
+                    "surname": {
+                        "type": "string",
+                        "maxLength": 64
+                    }
+                }
+            },
+            "PaymentLinkResponse": {
+                "type": "object",
+                "properties": {
+                    "link": {
+                        "type": "string",
+                        "example": "https://lnk.payment.io/a11de8"
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2025-09-08 15:05:12"
                     }
                 }
             }
