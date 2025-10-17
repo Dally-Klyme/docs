@@ -299,6 +299,10 @@
                                 "type": "string",
                                 "example": "COMPLETED"
                             },
+                            "settlement": {
+                                "type": "string",
+                                "example": "COMPLETED"
+                            },
                             "institution": {
                                 "type": "string",
                                 "example": "monzo_ob"

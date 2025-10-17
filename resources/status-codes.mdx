@@ -4,7 +4,7 @@ description: "Payment status codes and what they mean"
 icon: "chart-simple-horizontal"
 ---
 
-The Klyme API reports back three status variables when a payment is authorised and executed: `status`, `statusCode` and `description`.
+The Klyme API reports back three status variables when a payment is authorised and executed: `status`, `statusCode`, `description` and `settlement`.
 
 ## Description
 
@@ -186,3 +186,14 @@ The Status is computed based upon the combined logic of both Description and Sta
 <Note>Please note that while status codes `ACSC` and `ACWP` are marked as `1`, their settlement success rate is approximately 99%, compared to `ACCC`
 which settles at 100%. In most cases, payments with a status code of `ACSC` or `ACWP` will settle successfully, though in rare cases, reversals may occur.
 It is the client’s responsibility to determine how these two status codes are handled within their integration.</Note>
+
+## Settlement
+
+In certain cases, it’s important to identify when payments have settled; the `settlement` variable provides this information.
+
+- `COMPLETED` implies the payment has settled into the nominated bank account.
+- `PENDING` implies funds have left the customers account and is due to be settled.
+- `QUEUED` implies funds have not been released from the customers account as extra checks are being performed by their bank.
+- `FAILED` implies that settlement will not be taking place as the payment has been declined by the customers bank.
+
+<Note>The Settlement feature applies exclusively to EUR payments. In the UK, it is not needed due to payments being processed through the Faster Payments system.</Note>
