@@ -390,12 +390,12 @@
                                 "nullable": true,
                                 "example": null
                             },
-                            "payeeIban": {
+                            "payerIban": {
                                 "type": "string",
                                 "nullable": true,
                                 "example": null
                             },
-                            "payeeName": {
+                            "payerName": {
                                 "type": "string",
                                 "nullable": true,
                                 "example": null
@@ -410,12 +410,12 @@
                                 "nullable": true,
                                 "example": null
                             },
-                            "payeeAccNum": {
+                            "payerAccNum": {
                                 "type": "string",
                                 "nullable": true,
                                 "example": null
                             },
-                            "payeeSortCode": {
+                            "payerSortCode": {
                                 "type": "string",
                                 "nullable": true,
                                 "example": null
