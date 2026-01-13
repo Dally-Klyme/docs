@@ -74,26 +74,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/webho
     "amount": 10.00,
     "currency": "GBP",
     "reference": "1A2B3C4D",
-    "cart": {
-        "items": [],
-        "affiliateId": null,
-        "discountCode": null
-    },
     "result": {
         "status": 1,
         "statusCode": "ACCC",
         "description": "COMPLETED",
         "institution": "monzo_ob",
         "redirectUrl": "https://your-redirect-url.com"
-    },
-    "device": {
-        "deviceOs": "iOS",
-        "deviceOsVersion": "18.5",
-        "deviceName": "iPhone",
-        "deviceBrowser": "Mobile Safari",
-        "deviceBrowserVersion": "18.5"
-        "deviceToken": "nTW220MaiBjonNLoox2k",
-        "deviceIsMobile": 1,
     },
     "customer": {
         "firstName": null,
@@ -116,6 +102,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/webho
         "payerIban": null,
         "payerAccNum": null,
         "payerSortCode": null
+    },
+    "cart": {
+        "items": [],
+        "affiliateId": null,
+        "discountCode": null
+    },
+    "device": {
+        "deviceOs": "iOS",
+        "deviceOsVersion": "18.5",
+        "deviceName": "iPhone",
+        "deviceBrowser": "Mobile Safari",
+        "deviceBrowserVersion": "18.5"
+        "deviceToken": "nTW220MaiBjonNLoox2k",
+        "deviceIsMobile": 1,
     },
     "customParameters": {
         "custom1": null,
