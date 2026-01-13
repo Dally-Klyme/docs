@@ -317,21 +317,20 @@
                     "customer": {
                         "type": "object",
                         "properties": {
-                            "ip": {
+                            "firstName": {
                                 "type": "string",
-                                "format": "ipv4",
-                                "example": "16.126.433.250"
-                            },
-                            "dob": {
-                                "type": "string",
-                                "format": "date",
                                 "nullable": true,
                                 "example": null
                             },
-                            "city": {
+                            "middleName": {
                                 "type": "string",
                                 "nullable": true,
-                                "example": "Manchester"
+                                "example": null
+                            },
+                            "surname": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
                             },
                             "email": {
                                 "type": "string",
@@ -339,33 +338,28 @@
                                 "nullable": true,
                                 "example": "info@klyme.io"
                             },
-                            "phone": {
-                                "type": "string",
-                                "nullable": true,
-                                "example": null
-                            },
-                            "gender": {
-                                "type": "string",
-                                "nullable": true,
-                                "example": null
-                            },
                             "mobile": {
                                 "type": "string",
                                 "nullable": true,
                                 "example": null
                             },
-                            "company": {
+                            "phone": {
                                 "type": "string",
                                 "nullable": true,
                                 "example": null
                             },
-                            "country": {
+                            "customerId": {
                                 "type": "string",
-                                "pattern": "^[A-Z]{2}$",
                                 "nullable": true,
-                                "example": "GB"
+                                "example": null
                             },
-                            "surname": {
+                            "dob": {
+                                "type": "string",
+                                "format": "date",
+                                "nullable": true,
+                                "example": null
+                            },
+                            "gender": {
                                 "type": "string",
                                 "nullable": true,
                                 "example": null
@@ -380,32 +374,38 @@
                                 "nullable": true,
                                 "example": null
                             },
+                            "city": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": "Manchester"
+                            },
                             "postcode": {
                                 "type": "string",
                                 "nullable": true,
                                 "example": null
                             },
-                            "firstName": {
+                            "country": {
+                                "type": "string",
+                                "pattern": "^[A-Z]{2}$",
+                                "nullable": true,
+                                "example": "GB"
+                            },
+                            "company": {
                                 "type": "string",
                                 "nullable": true,
                                 "example": null
                             },
-                            "payerIban": {
+                            "ip": {
                                 "type": "string",
-                                "nullable": true,
-                                "example": null
+                                "format": "ipv4",
+                                "example": "16.126.433.250"
                             },
                             "payerName": {
                                 "type": "string",
                                 "nullable": true,
                                 "example": null
                             },
-                            "customerId": {
-                                "type": "string",
-                                "nullable": true,
-                                "example": null
-                            },
-                            "middleName": {
+                            "payerIban": {
                                 "type": "string",
                                 "nullable": true,
                                 "example": null
@@ -451,17 +451,25 @@
                                 "type": "string",
                                 "example": "iOS"
                             },
+                            "deviceOsVersion": {
+                                "type": "string",
+                                "example": "18.5"
+                            },
                             "deviceName": {
                                 "type": "string",
                                 "example": "iPhone"
                             },
-                            "deviceToken": {
-                                "type": "string",
-                                "example": "nTW220MaiBjonNLoox2k"
-                            },
                             "deviceBrowser": {
                                 "type": "string",
                                 "example": "Mobile Safari"
+                            },
+                            "deviceBrowserVersion": {
+                                "type": "string",
+                                "example": "18.5"
+                            },
+                            "deviceToken": {
+                                "type": "string",
+                                "example": "nTW220MaiBjonNLoox2k"
                             },
                             "deviceIsMobile": {
                                 "type": "integer",
@@ -470,14 +478,6 @@
                                     1
                                 ],
                                 "example": 1
-                            },
-                            "deviceOsVersion": {
-                                "type": "string",
-                                "example": "18.5"
-                            },
-                            "deviceBrowserVersion": {
-                                "type": "string",
-                                "example": "18.5"
                             }
                         }
                     },
