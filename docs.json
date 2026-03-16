@@ -51,6 +51,12 @@
                         ]
                     },
                     {
+                        "group": "Banks",
+                        "pages": [
+                            "api-reference/endpoint/banks"
+                        ]
+                    },
+                    {
                         "group": "Payments",
                         "pages": [
                             "api-reference/endpoint/create",

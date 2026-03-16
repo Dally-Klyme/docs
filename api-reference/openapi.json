@@ -56,6 +56,7 @@
                     {
                         "name": "uuid",
                         "in": "query",
+                        "required": true,
                         "description": "The `uuid` of the payment you would like to query.",
                         "schema": {
                             "type": "string",
@@ -98,6 +99,23 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/PaymentLinkResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/banks/list": {
+            "get": {
+                "description": "Retrieve the list of banks Klyme supports",
+                "responses": {
+                    "200": {
+                        "description": "Get payment status response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Banks"
                                 }
                             }
                         }
@@ -596,6 +614,38 @@
                         "type": "string",
                         "format": "date-time",
                         "example": "2025-09-08 15:05:12"
+                    }
+                }
+            },
+            "Banks": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "bank_id": {
+                            "type": "string",
+                            "example": "monzo_ob"
+                        },
+                        "bank_name": {
+                            "type": "string",
+                            "example": "Monzo"
+                        },
+                        "logo": {
+                            "type": "string",
+                            "example": "https://images.minmoa.com/bank-logos/monzo.png"
+                        },
+                        "countries": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "example": ["GB"]
+                        },
+                        "created_at": {
+                            "type": "string",
+                            "format": "date-time",
+                            "example": "2025-02-26 19:15:03"
+                        }
                     }
                 }
             }
