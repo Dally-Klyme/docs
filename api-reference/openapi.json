@@ -108,7 +108,7 @@
         },
         "/banks/list": {
             "get": {
-                "description": "Retrieve the list of banks Klyme supports",
+                "description": "Retrieve the list of all production banks Klyme supports",
                 "responses": {
                     "200": {
                         "description": "Get payment status response",
