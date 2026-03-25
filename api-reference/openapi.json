@@ -37,7 +37,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Payment authorisation response",
+                        "description": "",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -67,7 +67,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Get payment status response",
+                        "description": "",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -94,7 +94,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Payment link response",
+                        "description": "",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -116,6 +116,49 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Banks"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/merchants/update/credentials": {
+            "post": {
+                "description": "Rotate API credentials for a given merchant UUID",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "merchantUuid"
+                                ],
+                                "properties": {
+                                    "merchantUuid": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "apiKey": {
+                                            "type": "string"
+                                        },
+                                        "secret": {
+                                            "type": "string"
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -639,7 +682,9 @@
                             "items": {
                                 "type": "string"
                             },
-                            "example": ["GB"]
+                            "example": [
+                                "GB"
+                            ]
                         },
                         "created_at": {
                             "type": "string",
