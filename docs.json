@@ -57,12 +57,6 @@
                         ]
                     },
                     {
-                        "group": "Credentials",
-                        "pages": [
-                            "api-reference/endpoint/credentials"
-                        ]
-                    },
-                    {
                         "group": "Payments",
                         "pages": [
                             "api-reference/endpoint/create",

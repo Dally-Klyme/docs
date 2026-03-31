@@ -123,9 +123,9 @@
                 }
             }
         },
-        "/merchants/update/credentials": {
+        "/merchants/reset/credentials": {
             "post": {
-                "description": "Rotate API credentials for a given merchant UUID",
+                "description": "Reset API credentials for a given merchant UUID",
                 "requestBody": {
                     "content": {
                         "application/json": {
