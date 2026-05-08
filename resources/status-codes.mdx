@@ -183,7 +183,7 @@ The Status is computed based upon the combined logic of both Description and Sta
 - Status of `0` implies the payment was rejected or failed due to technical issues on the banks side.
 - Status of `2` implies the payment is in a pending state and the customers bank has further checks to complete before the payment is authorised.
 
-<Note>Please note that while status codes `ACSC` and `ACWP` are marked as `1`, their settlement success rate is approximately 99%, compared to `ACCC`
+<Note>Please note that while status codes `ACSC` and `ACWP` are marked as `1`, their settlement success rate is approximately 99.9%, compared to `ACCC`
 which settles at 100%. In most cases, payments with a status code of `ACSC` or `ACWP` will settle successfully, though in rare cases, reversals may occur.
 It is the client’s responsibility to determine how these two status codes are handled within their integration.</Note>
 
